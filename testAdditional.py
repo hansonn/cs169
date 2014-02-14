@@ -19,9 +19,8 @@ class TestAddUser(testLib.RestTestCase):
 
     def testEmptyUsername(self):
         respData = self.makeRequest("/users/add", method="POST", data = { 'user' : '', 'password' : 'password'} )
-        self.assertResponse(respData, None, testLib.RestTestCase.ERR_BAD_USERNAME)
+        self.assertEquals(respData['errCode'], testLib.RestTestCase.ERR_BAD_USERNAME)
 
-    
     def testAdd2(self):
         respData1 = self.makeRequest("/users/add", method="POST", data = { 'user' : 'user2.1', 'password' : 'password'} )
         respData2 = self.makeRequest("/users/add", method="POST", data = { 'user' : 'user2.2', 'password' : 'password'} )
