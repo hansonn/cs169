@@ -44,4 +44,4 @@ class TestAddUser(testLib.RestTestCase):
     def testAdd3(self):
         self.makeRequest("/users/add", method="POST", data = { 'user' : 'user6', 'password' : 'password'} )
         respData1 = self.makeRequest("/users/add", method="POST", data = { 'user' : 'user6', 'password' : 'password'} )
-        self.assertResponse(respData, count=1, testLib.RestTestCase.ERR_USER_EXISTS)
+        self.assertResponse(respData, 1, testLib.RestTestCase.ERR_USER_EXISTS)
