@@ -31,7 +31,7 @@ class UsersController < ApplicationController
 		output = `rspec #{Rails.root}/spec/`
 		nrFailed = /(\d+) failures/.match(output)[1]
 		totalTests = /(\d+) example/.match(output)[1]
-		render json: {nrFailed: nrFailed, output: output, totalTests: totalTests}
+		render json: {nrFailed: nrFailed.to_i, output: output, totalTests: totalTests.to_i}
 	end	
 
 end
