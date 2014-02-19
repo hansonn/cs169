@@ -1,7 +1,11 @@
 class UsersController < ApplicationController
 
-	def test
-		render :test
+	def index
+
+	end
+
+	def client
+		render :client
 	end
 
 	def add

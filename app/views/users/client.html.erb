@@ -1,0 +1,78 @@
+<center>
+	<div id="login_page" class = "box">
+		<div id="login_page" class = "box">
+			<br><br><br><br><br><br><br>
+			<h1><div id="display_message" class="message"></div></h1>
+			<br><br><br><br><br><br><br>
+			<h3>
+			<form>
+				Username: <input id="input_username" type = "text" name="username">
+				Password: <input id="input_password" type = "password" name = "password">
+				<br>
+				<input id="login_button" type="submit" value="Login">
+				<input id="create_button" type="submit" value="New User">
+			</form>
+			</h3>
+		</div>
+	</div>
+
+	<br>
+
+	<div id="welcome_page" class="box">
+		<br><br><br><br><br><br><br><br><br><br><br><br><br>
+	  <h1><div id="welcome_message" class="message"></div></h1><br><br><br>
+	    <form>
+	      <input id="logout_button" type="submit" value="Logout">
+	    </form>
+	</div>
+</center>
+
+
+<script type="text/javascript">
+$('#display_message').html("Please enter your username and password to log in or create new user");
+$('#welcome_page').hide();
+
+
+$('#login_button').click(function(){
+	username = $('#input_username').val();
+	password = $('#input_password').val();
+	json_request("users/login", {user: username, password: password}, function(data){return log_in_request(username, data);}, function(err){alert('there is an error during login process, please try again later');});
+	return false;
+});
+
+$('#create_button').click(function(){
+	username = $('#input_username').val();
+	password = $('#input_password').val();
+	json_request("users/add", {user: username, password:password}, function(data){return log_in_request(username, data);}, function(err){alert('there is an error during login process, please try again later');});
+	return false;
+});
+
+$('#logout_button').click(function(){
+	message = "Please enter your username and password to log in or create new user";
+	login_page(message);
+	return false;
+});
+
+function welcome_page(user, count){
+	$('#login_page').hide();
+	$('#welcome_message').html("Welcome "+user+". You have logged in "+count+" times.");
+	$('#welcome_page').show();
+}
+
+
+function login_page(message){
+	$('#input_username').val("");
+	$('#input_password').val("");
+	$('#welcome_page').hide();
+	$('#display_message').html(message);
+	$('#login_page').show();
+}
+
+function log_in_request(user, data){
+	if(data.errCode > 0){
+		welcome_page(user, data.count);
+	} else {
+		login_page(errCode_message(data.errCode));
+	}
+}
+</script>

@@ -1,6 +1,6 @@
 Warmup::Application.routes.draw do
   
-  # get '/users/', to: 'users#test'
+  get '/client', to: 'users#client'
   post '/users/add', to: 'users#add'
   post '/users/login', to: 'users#login'
   post '/TESTAPI/resetFixture', to: 'users#reset_fixture'
